@@ -74,10 +74,10 @@ class LinkedList
 
   # desired formatting: ( value ) -> ( value ) -> ( value ) -> nil
   def to_s
+
+    # grab all the values of each node based on next_node
     value_array = []
-
     value_array.push(head.value)
-
     @node_list.each do |node|
       next_node = node.next_node
       
@@ -86,10 +86,18 @@ class LinkedList
       else
         value_array.push(next_node.value)
       end
-
     end
 
-    value_array.to_s
+    output_string = ''
+    value_array.each do |value|
+      if (value.nil?)
+        output_string += "nil"
+      else
+        output_string += "( #{value} ) -> "
+      end
+    end
+
+    output_string
   end
 
 end
