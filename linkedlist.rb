@@ -1,8 +1,75 @@
 class LinkedList
+  attr_accessor :node_list
+
   def initialize
-    @node_list = nil
+    # an array of nodes
+    @node_list = []
   end
 
+  # add a new node containing value to the end of the list
+  def append(value)
+    # create new node with value. This node points to nil by default
+    new_node = Node.new(value)
+    old_last_node = @node_list.last
+
+    # point previous last node to new node
+    # if the node_list is empty, ignore this
+    unless old_last_node.nil? then old_last_node.next_node = new_node end
+
+    # add node to the end list
+    @node_list.push(new_node)
+  end
+
+  # add a new node containing value to the beginning of the list
+  def prepend(value)
+    # create new node with value. This node points to nil by default
+    new_node = Node.new(value)
+    old_first_node = @node_list.first
+
+    # unless the list is empty, point the new node to the old first node
+    unless old_first_node.nil?
+      new_node.next_node = old_first_node
+    end
+
+    # add the new node to the beginning of the list
+    @node_list.unshift(new_node)
+  end
+
+  def size
+    @node_list.size
+  end
+
+  def head
+    @node_list.first
+  end
+
+  def tail
+    @node_list.last
+  end
+
+  def at(index)
+    @node_list[index]
+  end
+
+  # removes the last element from the list
+  # changes next_node of new last node to point ot nil
+  def pop
+    @node_list.pop
+    new_tail = tail
+    new_tail.next_node = nil
+  end
+
+  # returns the index of the node containing value, or nil if not found.
+  def find(value)
+    @node_list.find_index { |node| node.value == value }
+  end
+
+  # returns true if the passed in value is in the list and otherwise returns false.
+  def contains?(value)
+    result_index = find(value)
+
+    result_index.nil? ? false : true
+  end
 
 
 end
@@ -11,14 +78,31 @@ end
 class Node
   attr_accessor :value, :next_node
 
-  def initialize
-  @value = nil
-  @next_node = nil
+  def initialize(value = nil, next_node = nil)
+    @value = value
+    @next_node = next_node
   end
 
+  # for debugging, for some reason attr_accessor isn't working
+  def return_value
+    @value
+  end
+
+  def to_s
+    "[value: #{value} next_node:#{next_node}]"
+  end
 end
 
 
-a_node = Node.new()
-a_node.value = "a value"
-p a_node
+a_list = LinkedList.new
+a_list.append("1")
+a_list.append("2")
+a_list.append("3")
+a_list.append("4")
+
+a_list.pop
+
+p a_list
+
+# node_list = a_list.node_list
+# p search_hits = node_list.select { |node| node.value == "sdas" }
