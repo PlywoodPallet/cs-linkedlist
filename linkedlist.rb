@@ -35,6 +35,33 @@ class LinkedList
     @node_list.unshift(new_node)
   end
 
+
+  # inserts a new node with the provided value at the given index
+  # valid indexies are 0-@node_list.size (one index after end of array is still valid for an insertion)
+  # if the index is 0, ignore prev since it's negative index and prev_node
+  def insert_at(value, index)
+    prev = index - 1
+    
+    if prev >= 0
+      prev_node = @node_list[prev]
+    end
+
+    post_node = @node_list[index]
+
+    new_node = Node.new(value, post_node)
+
+    if prev >= 0
+      prev_node.next_node = new_node
+    end
+
+    @node_list.insert(index, new_node)
+  end
+
+  # that removes the node at the given index.
+  def remove_at(index)
+
+  end
+
   def size
     @node_list.size
   end
@@ -75,7 +102,7 @@ class LinkedList
   # desired formatting: ( value ) -> ( value ) -> ( value ) -> nil
   def to_s
 
-    # grab all the values of each node based on next_node
+    # grab all the values of each node based on next_node, put them in an array
     value_array = []
     value_array.push(head.value)
     @node_list.each do |node|
@@ -88,6 +115,7 @@ class LinkedList
       end
     end
 
+    # use the array to output the correct formatting
     output_string = ''
     value_array.each do |value|
       if (value.nil?)
@@ -123,14 +151,14 @@ end
 
 
 a_list = LinkedList.new
+a_list.append('0')
 a_list.append('1')
 a_list.append('2')
 a_list.append('3')
-a_list.append('4')
+puts a_list
 
-
-
-p a_list.to_s
+a_list.insert_at("A", 4)
+puts a_list
 
 # node_list = a_list.node_list
 # p search_hits = node_list.select { |node| node.value == "sdas" }
