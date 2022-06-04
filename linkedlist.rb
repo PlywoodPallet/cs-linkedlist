@@ -57,8 +57,29 @@ class LinkedList
     @node_list.insert(index, new_node)
   end
 
-  # that removes the node at the given index.
+  # that removes the node at the given index
   def remove_at(index)
+    prev = index - 1
+    
+    # if index is the last node, repair link
+    if index == @node_list.size-1
+      prev_node = @node_list[prev]
+
+      # prev node is now the last node
+      prev_node.next_node = nil
+
+    # if index is positive, repair link
+    elsif prev >= 0
+      prev_node = @node_list[prev]
+
+      # repair link before removing node
+      prev_node.next_node = @node_list[index+1]
+    end
+
+    
+
+    @node_list.delete_at(index)
+    puts @node_list
 
   end
 
@@ -155,9 +176,6 @@ a_list.append('0')
 a_list.append('1')
 a_list.append('2')
 a_list.append('3')
-puts a_list
-
-a_list.insert_at("A", 4)
 puts a_list
 
 # node_list = a_list.node_list
