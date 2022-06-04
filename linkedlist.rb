@@ -57,6 +57,7 @@ class LinkedList
     @node_list.pop
     new_tail = tail
     new_tail.next_node = nil
+    new_tail
   end
 
   # returns the index of the node containing value, or nil if not found.
@@ -71,6 +72,24 @@ class LinkedList
     result_index.nil? ? false : true
   end
 
+  def to_s
+    value_array = []
+
+    value_array.push(head.value)
+
+    @node_list.each do |node|
+      next_node = node.next_node
+      
+      if (next_node.nil?)
+        value_array.push(nil)
+      else
+        value_array.push(next_node.value)
+      end
+
+    end
+
+    value_array.to_s
+  end
 
 end
 
@@ -95,14 +114,14 @@ end
 
 
 a_list = LinkedList.new
-a_list.append("1")
-a_list.append("2")
-a_list.append("3")
-a_list.append("4")
+a_list.append('1')
+a_list.append('2')
+a_list.append('3')
+a_list.append('4')
 
-a_list.pop
 
-p a_list
+
+p a_list.to_s
 
 # node_list = a_list.node_list
 # p search_hits = node_list.select { |node| node.value == "sdas" }
