@@ -72,6 +72,7 @@ class LinkedList
     result_index.nil? ? false : true
   end
 
+  # desired formatting: ( value ) -> ( value ) -> ( value ) -> nil
   def to_s
     value_array = []
 
